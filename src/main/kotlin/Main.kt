@@ -16,16 +16,15 @@ const val VISA_AND_MIR_MIN_TAX = 35
 fun calculateTax(
     cardsType: CardsType,
     transferAmount: Int,
-    prevTransfersAmount: Int = 0,
     isVKPayAccount: Boolean,
-    isPromo: Boolean
+    isPromo: Boolean,
+    prevTransfersAmount: Int = 0
 ): Double {
 
     val taxesAmount = when (cardsType) {
         CardsType.MC -> calculateTaxMCAndMA(transferAmount, prevTransfersAmount, isPromo, isVKPayAccount)
         CardsType.MA -> calculateTaxMCAndMA(transferAmount, prevTransfersAmount, isPromo, isVKPayAccount)
         CardsType.VISA -> calculateTaxVisaAndMir(transferAmount, prevTransfersAmount, isVKPayAccount)
-
         CardsType.MIR -> calculateTaxVisaAndMir(transferAmount, prevTransfersAmount, isVKPayAccount)
     }
     return taxesAmount
@@ -39,6 +38,8 @@ private fun calculateTaxMCAndMA(
 ): Double {
     return if (checkLimits(transferAmount, prevTransfersAmount, isVKPayAccount)) {
         0.0
+    } else if (isVKPayAccount) {
+        return 0.0
     } else if (transferAmount in (300..75000) && isPromo) {
         0.0
     } else {
@@ -48,6 +49,8 @@ private fun calculateTaxMCAndMA(
 
 private fun calculateTaxVisaAndMir(transferAmount: Int, prevTransfersAmount: Int, isVKpayAccount: Boolean): Double {
     if (checkLimits(transferAmount, prevTransfersAmount, isVKpayAccount)) {
+        return 0.0
+    } else if (isVKpayAccount) {
         return 0.0
     } else {
         val taxAmount = transferAmount * VISA_AND_MIR_BASE_PERCENT_TAX
