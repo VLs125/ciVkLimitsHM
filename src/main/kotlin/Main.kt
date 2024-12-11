@@ -7,9 +7,9 @@ const val DAY_LIMIT = 150_000
 const val MONTH_LIMIT = 600_000
 const val VK_PAY_DAY_LIMIT = 15_000
 const val VK_PAY_MONTH_LIMIT = 40_000
-const val VISA_AND_MIR_BASE_PERCENT_TAX = 0.075
-const val MC_AND_ME_BASE_PERCENT_TAX = 0.06
-const val MC_AND_ME_BASE_TAX_ADDS = 20
+// const val VISA_AND_MIR_BASE_PERCENT_TAX = 0.075
+// const val MC_AND_ME_BASE_PERCENT_TAX = 0.06
+// const val MC_AND_ME_BASE_TAX_ADDS = 20
 const val VISA_AND_MIR_MIN_TAX = 35
 
 
